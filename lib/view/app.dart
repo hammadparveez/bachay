@@ -1,4 +1,6 @@
-import 'package:bachay/view/home_view/HomeView.dart';
+import 'package:bachay/constants/strings.dart';
+import 'package:bachay/constants/theme/light_theme.dart';
+import 'package:bachay/view/home_view/home_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -7,11 +9,8 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      title: 'Bachay',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),
+      title: Strings.APP_NAME,
+      theme: LightTheme.setLightTheme(),
       home: HomeView(),
     );
   }
