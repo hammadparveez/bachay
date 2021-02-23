@@ -31,73 +31,87 @@ class _HomeBodyState extends State<HomeBody> {
         controller: watch(splashProvider).pageController,
         itemCount: watch(splashProvider).length,
         itemBuilder: (_, index) {
-          return Column(
+          return Stack(
             children: [
-              Expanded(
-                  child: Align(
-                      child: Image.asset(
-                Images.logo,
-                height: context.responsive.widgetScaleFactor * 10,
-              ))),
-              Expanded(flex: 2, child: Image.asset(Images.board1)),
+              Container(
+                height: context.responsive.deviceHeight/2,
+                child: Column(
+                  children: [
+                    Expanded(
+                        child: Align(
+                            child: Image.asset(
+                      Images.logo,
+                      height: context.responsive.widgetScaleFactor * 10,
+                    )),), Expanded(flex: 2, child: Image.asset(Images.board1)),
+
+                  ],
+                ),
+              ),
+
               const SizedBox(height: Values.VALUE_10),
-              Expanded(
-                flex: 3,
-                child: Container(
-                  margin: EdgeInsets.only(right: 0),
-                  decoration: BoxDecoration(
-                    color: context.themeData.backgroundColor,
-                    borderRadius: BorderRadius.circular(
-                        context.responsive.widgetScaleFactor * 5),
-                    boxShadow: [
-                      BoxShadow(blurRadius:Style.BLUR_RADIUS3 , spreadRadius: Style.SPREAD_RADIUS3, color: context.themeData.shadowColor)
-                    ],
-                  ),
-                  alignment: Alignment.center,
-                  child: Column(
-                    children: [
-                      _indicators(context),
-                      Expanded(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(Strings.ON_BOARD_TITLE1,
-                              style: context.themeData.textTheme.headline1.copyWith(
-                                  fontSize:
-                                      context.responsive.textScaleFactor * 4)),
-                          const SizedBox(height: Values.VALUE_10),
-                          Text(Strings.ON_BOARD_PARA,
-                              textAlign: TextAlign.center,
-                              style: Style.secondaryTextStyleLight.copyWith(
-                                  fontSize:
-                                      context.responsive.widgetScaleFactor *
-                                          1.8)),
-                          const SizedBox(height: Values.VALUE_10),
-                          //RaisedButton
-                          RaisedButton(
-                            onPressed: () {
-                              context.read(themeProvider).updateTheme(ThemeStatus.DARK);
-                            },
-                            color: LightColors.PRIMARY_COLOR,
-                            shape: RoundedRectangleBorder(
-                                borderRadius: Style.BORDER_FULL_RADIUS),
-                            child: Text(Strings.NEXT,
-                                style: Style.secondaryTextStyleLightWhite
-                                    .copyWith(
-                                        fontSize: context
-                                                .responsive.widgetScaleFactor *
+              Positioned(
+                bottom: Values.VALUE_25,
+                left: 0,
+                right: 0,
+                child: Align(
+                  child: Container(height: context.responsive.widgetScaleFactor * 40,
+                    width: context.responsive.deviceWidth/1.2,
+
+                    margin: EdgeInsets.only(right: 0),
+                    decoration: BoxDecoration(
+                      color: context.themeData.backgroundColor,
+                      borderRadius: BorderRadius.circular(
+                          context.responsive.widgetScaleFactor * 5),
+                      boxShadow: [
+                        BoxShadow(blurRadius:Style.BLUR_RADIUS3 , spreadRadius: Style.SPREAD_RADIUS3, color: context.themeData.shadowColor)
+                      ],
+                    ),
+                    alignment: Alignment.center,
+                    child: Column(
+                      children: [
+                        _indicators(context),
+                        Expanded(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(Strings.ON_BOARD_TITLE1,
+                                style: context.themeData.textTheme.headline1.copyWith(
+                                    fontSize:
+                                        context.responsive.textScaleFactor * 4)),
+                            const SizedBox(height: Values.VALUE_10),
+                            Text(Strings.ON_BOARD_PARA,
+                                textAlign: TextAlign.center,
+                                style: Style.secondaryTextStyleLight.copyWith(
+                                    fontSize:
+                                        context.responsive.widgetScaleFactor *
                                             1.8)),
-                          ),
-                          //FlatButton
-                          FlatButton(
-                            onPressed: () {  context.read(themeProvider).updateTheme(ThemeStatus.LIGHT);},
-                            child: Text(Strings.SKIP,
-                                style: context.themeData.textTheme.bodyText1.copyWith(fontSize: context.responsive.widgetScaleFactor * 1.5),
+                            const SizedBox(height: Values.VALUE_10),
+                            //RaisedButton
+                            RaisedButton(
+                              onPressed: () {
+                                context.read(themeProvider).updateTheme(ThemeStatus.DARK);
+                              },
+                              color: LightColors.PRIMARY_COLOR,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: Style.BORDER_FULL_RADIUS),
+                              child: Text(Strings.NEXT,
+                                  style: Style.secondaryTextStyleLightWhite
+                                      .copyWith(
+                                          fontSize: context
+                                                  .responsive.widgetScaleFactor *
+                                              1.8)),
                             ),
-                          ),
-                        ],
-                      )),
-                    ],
+                            //FlatButton
+                            FlatButton(
+                              onPressed: () {  context.read(themeProvider).updateTheme(ThemeStatus.LIGHT);},
+                              child: Text(Strings.SKIP,
+                                  style: context.themeData.textTheme.bodyText1.copyWith(fontSize: context.responsive.widgetScaleFactor * 1.5),
+                              ),
+                            ),
+                          ],
+                        )),
+                      ],
+                    ),
                   ),
                 ),
               ),
