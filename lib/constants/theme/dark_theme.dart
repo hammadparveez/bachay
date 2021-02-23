@@ -2,22 +2,25 @@ import 'package:bachay/constants/color_resources.dart';
 import 'package:bachay/constants/styles/style.dart';
 import 'package:flutter/material.dart';
 
-class LightTheme {
-  static ThemeData setLightTheme() {
+class DarkTheme {
+  static ThemeData setDarkTheme() {
     return ThemeData(
-      brightness: Brightness.light,
-      focusColor: LightColors.PRIMARY_COLOR,
-      splashColor: LightColors.PRIMARY_COLOR,
-      primaryColor: LightColors.PRIMARY_COLOR,
-      primarySwatch: LightColors.WHITE,
-      backgroundColor: LightColors.PRIMARY_BG_COLOR,
-      accentColor: LightColors.PRIMARY_COLOR,
+      scaffoldBackgroundColor: DarkColors.PRIMARY_BG_COLOR,
+      brightness: Brightness.dark,
+      focusColor: DarkColors.PRIMARY_COLOR,
+      splashColor: DarkColors.PRIMARY_ORIGINAL,
+      primaryColor: DarkColors.PRIMARY_COLOR,
+      primarySwatch: DarkColors.WHITE,
+      backgroundColor: DarkColors.PRIMARY_BG_COLOR,
+      accentColor: DarkColors.PRIMARY_COLOR,
       accentTextTheme: TextTheme(button: Style.primaryTextStyle),
       iconTheme: const IconThemeData(color: LightColors.WHITE),
-      buttonTheme: ButtonThemeData(
-          buttonColor: LightColors.PRIMARY_COLOR,
-          textTheme: ButtonTextTheme.primary),
-      //primaryTextTheme: TextTheme(),
+      shadowColor: DarkColors.DARK_LIGHT63,
+      buttonTheme: ButtonThemeData(buttonColor: DarkColors.PRIMARY_ORIGINAL),
+      textTheme:
+      TextTheme(bodyText1: Style.bodyText1.copyWith(color: DarkColors.DARK_LIGHTE3),
+        headline1:  Style.heading1.copyWith(color: DarkColors.DARK_LIGHTE3)
+      ),
     );
   }
 }

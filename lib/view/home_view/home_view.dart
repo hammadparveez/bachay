@@ -1,3 +1,6 @@
+import 'package:bachay/constants/styles/style.dart';
+import 'package:bachay/constants/values.dart';
+import 'package:bachay/view/home_view/components/home_body.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -14,35 +17,9 @@ class _HomeViewState extends State<HomeView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Stack(
-          children: [
-            Text("Hello World"),
-            TweenAnimationBuilder(
-              duration: Duration(seconds: 2),
-              tween: _tween,
-              onEnd: () {
-                setState(() {
-                  positionValue =
-                      positionValue == Get.width / 2 ? 0 : Get.width / 2;
-                });
-              },
-              builder: (_, num value, child) {
-                return Positioned(
-                  right: value,
-                  child: RaisedButton(
-                    child: Text("Click Me"),
-                    onPressed: () {
-                      positionValue =
-                          positionValue == Get.width / 2 ? 0 : Get.width / 2;
-                      //isChanged = !isChanged;
-                    },
-                  ),
-                );
-              },
-            ),
-          ],
-        ),
+      body: SafeArea(
+        minimum: Style.DEFAULT_PADDING_HZT,
+        child: HomeBody(),
       ),
     );
   }
