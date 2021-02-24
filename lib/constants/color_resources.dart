@@ -11,6 +11,7 @@ class LightColors {
   static const LIGHT_WHITE_D6 = Color(0xffd6d6d6);
   static const LIGHT_WHITE_E3 = Color(0xffe3e3e3);
   static const LIGHT_BLACK26 = Color(0xff262626);
+  static const TRANSPARENT = Colors.transparent;
 
 }
 
@@ -25,4 +26,5 @@ class DarkColors {
   static const DARK_LIGHT63 = Color(0xff636363);
   static const DARK_LIGHTE3 = Color(0xffe3e3e3);
   static const WHITE = white;
+  static const TRANSPARENT = Colors.transparent;
 }

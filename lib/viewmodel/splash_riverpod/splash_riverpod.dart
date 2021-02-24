@@ -10,10 +10,4 @@ class SplashProvider extends ChangeNotifier {
   PageController get pageController => _pageController;
 
 
-
-  @override
-  void dispose() {
-    super.dispose();
-    _pageController.dispose();
-  }
 }

@@ -12,6 +12,7 @@ class LightTheme {
       primarySwatch: LightColors.WHITE,
       backgroundColor: LightColors.PRIMARY_BG_COLOR,
       accentColor: LightColors.PRIMARY_COLOR,
+      cardColor: LightColors.DARK_GRAY,
       accentTextTheme: TextTheme(button: Style.primaryTextStyle),
       iconTheme: const IconThemeData(color: LightColors.WHITE),
       shadowColor: LightColors.LIGHT_WHITE_D6,

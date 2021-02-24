@@ -6,4 +6,5 @@ class Strings {
   //Minimal Strings
   static const NEXT = "Next";
   static const SKIP = "Skip";
+  static const GET_STARTED = "Get Started";
 }

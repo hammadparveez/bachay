@@ -18,14 +18,18 @@ class ThemeProvider extends ChangeNotifier {
     String currentMode;
     if(_pref.containsKey(Pref.THEME_MODE)) {
       currentMode = _pref.get(Pref.THEME_MODE);
-      if (currentMode == Pref.LIGHT)
+      if (currentMode == Pref.LIGHT) {
         _themeData = _setLightTheme();
-      else if (currentMode == Pref.DARK)
+        _themeStatus = ThemeStatus.LIGHT;
+      } else {
         _themeData = _setDarkTheme();
-      else
-        _themeData = _setLightTheme();
+        _themeStatus = ThemeStatus.DARK;
+      }
     }else {
-      _themeData = _setLightTheme();
+
+        _themeData = _setLightTheme();
+        _themeStatus = ThemeStatus.LIGHT;
+
     }
 
     return _themeData;

@@ -17,6 +17,7 @@ class DarkTheme {
       iconTheme: const IconThemeData(color: LightColors.WHITE),
       shadowColor: DarkColors.DARK_LIGHT63,
       buttonTheme: ButtonThemeData(buttonColor: DarkColors.PRIMARY_ORIGINAL),
+      cardColor: DarkColors.DARK_LIGHTE3,
       textTheme:
       TextTheme(bodyText1: Style.bodyText1.copyWith(color: DarkColors.DARK_LIGHTE3),
         headline1:  Style.heading1.copyWith(color: DarkColors.DARK_LIGHTE3)
