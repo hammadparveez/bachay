@@ -5,12 +5,15 @@ class CameraConfig {
   final _cameraDescription = getIt.get<List<CameraDescription>>();
   List<CameraDescription> get cameraDescription => _cameraDescription;
   String _cameraErrorMsg = "";
-  Future<CameraController> init(CameraDescription cameraDescription, ResolutionPreset resolutionPreset) async {
+  Future<CameraController> init(CameraDescription cameraDescription,
+      ResolutionPreset resolutionPreset) async {
     try {
-      final _cameraController = CameraController(cameraDescription, ResolutionPreset.max);
+      final _cameraController =
+          CameraController(cameraDescription, ResolutionPreset.max);
       await _cameraController.initialize();
-  return _cameraController;
-    } catch(error){
+
+      return _cameraController;
+    } catch (error) {
       throw CameraException("408", "Camera cannot be launched");
     }
   }

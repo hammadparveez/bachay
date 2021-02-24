@@ -1,79 +1,77 @@
 import 'package:bachay/constants/color_resources.dart';
 import 'package:bachay/constants/enums/theme_status.dart';
-import 'package:bachay/constants/styles/style.dart';
-import 'package:bachay/constants/values.dart';
+import 'package:bachay/responsive_ext.dart';
 import 'package:bachay/view/home_view/components/home_body.dart';
 import 'package:bachay/viewmodel/camera_provider/camera_provider.dart';
 import 'package:bachay/viewmodel/theme_provider.dart';
 import 'package:camera/camera.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:bachay/constants/theme/theme_ext.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class HomeView extends StatefulWidget {
-  @override
-  _HomeViewState createState() => _HomeViewState();
-}
-
-class _HomeViewState extends State<HomeView> {
-  CameraNotifier _cameraProvider;
-  List<CameraDescription> _cameraDesc;
-  @override
-  void initState() {
-    super.initState();
-    _cameraProvider = context.read(cameraProvider);
-    _cameraDesc = _cameraProvider.cameraDescriptions;
-    _cameraProvider.initCamera(_cameraDesc.first, ResolutionPreset.max);
-
-  }
+class HomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: HomeBody(),
+        child: const HomeBody(),
       ),
-      bottomNavigationBar: Container(
-        child: Row(
-          children: [
-            RaisedButton(
-              onPressed: () {
-                context.read(themeProvider).updateTheme(ThemeStatus.DARK);
-                //_cameraProvider.cameraController.dispose();
-              },
-              child: Text("Open Camera"),
-            ),
-            RaisedButton(
-              onPressed: () async {
-                context.read(themeProvider).updateTheme(ThemeStatus.LIGHT);
-                //await _cameraProvider.initCamera(_cameraDesc.first, ResolutionPreset.ultraHigh);
-                //_cameraProvider.buildPreview();
-              },
-              child: Text("Close Camera"),
-            ),
-          ],
-        ),
+      bottomNavigationBar: ProviderListener(
+        provider: cameraProvider,
+        onChange: (_, CameraNotifier cameraNotifier) {
+          //if (cameraNotifier.cameraErrorMsg != null)
+        },
+        child: const BottomNavigation(),
       ),
-      /*CurvedNavigationBar(
-        height: 50,
-        backgroundColor: LightColors.TRANSPARENT,
-        color: LightColors.PRIMARY_COLOR,
-        items: [
-          IconButton(icon: Icon(Icons.camera_alt_outlined), onPressed: () {
-            _cameraProvider.buildPreview();
-          }),
-          IconButton(icon: Icon(Icons.camera_alt_outlined), onPressed: () {
-            _cameraProvider.cameraController.buildPreview();
-          }),
-          // /IconButton(icon: Icon(Icons.close), onPressed: () {}),
-        ],
-      ),*/
     );
   }
+}
+
+class BottomNavigation extends StatelessWidget {
+  const BottomNavigation();
   @override
-  void dispose() {
-    _cameraProvider.cameraController.dispose();
-    super.dispose();
+  Widget build(BuildContext context) {
+    return CurvedNavigationBar(
+      height: 50,
+      backgroundColor: LightColors.TRANSPARENT,
+      color: LightColors.PRIMARY_COLOR,
+      onTap: (index) {
+        switch (index) {
+          case 0:
+            _openCameraOnPress(context);
+            break;
+          case 1:
+            _closeCameraOnPress(context);
+            break;
+        }
+      },
+      items: [
+        Icon(CupertinoIcons.camera_viewfinder,
+            size: context.responsive.widgetScaleFactor * 3.5),
+        Icon(CupertinoIcons.clear,
+            size: context.responsive.widgetScaleFactor * 3.5)
+        // /IconButton(icon: Icon(Icons.close), onPressed: () {}),
+      ],
+    );
+  }
+
+  //Open Camera On Button Press
+  void _openCameraOnPress(BuildContext context) async {
+    final _cameraProvider = context.read(cameraProvider);
+    context.read(themeProvider).updateTheme(ThemeStatus.LIGHT);
+    if (!_cameraProvider.isCameraOpen) {
+      await _cameraProvider.initCamera(
+          _cameraProvider.cameraDescriptions.first, ResolutionPreset.ultraHigh);
+      if (_cameraProvider.cameraErrorMsg == null)
+        _cameraProvider.buildPreview();
+    }
+  }
+
+  //Close Camera on button Press
+  void _closeCameraOnPress(BuildContext context) {
+    final _cameraProvider = context.read(cameraProvider);
+    context.read(themeProvider).updateTheme(ThemeStatus.DARK);
+    if (_cameraProvider.camera != null) _cameraProvider.cameraDispose();
   }
 }
