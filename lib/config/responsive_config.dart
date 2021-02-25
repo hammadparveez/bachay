@@ -24,7 +24,7 @@ class ResponsiveConfig {
     _textScaleFactor = _widgetScaleFactor;
   }
 
-  get deviceBlockWidth => _deviceBlockWidth;
+  double get deviceBlockWidth => _deviceBlockWidth;
 
   double get deviceWidth => _deviceWidth;
 

@@ -1,15 +1,35 @@
-import 'package:bachay/constants/color_resources.dart';
-import 'package:bachay/constants/images.dart';
-import 'package:bachay/constants/styles/style.dart';
-import 'package:bachay/constants/theme/theme_ext.dart';
-import 'package:bachay/constants/values.dart';
+
+import 'dart:io';
+
 import 'package:bachay/responsive_ext.dart';
+import 'package:bachay/view/home_view/components/animated_qr_bar.dart';
+import 'package:bachay/view/home_view/components/camera_preview.dart';
+import 'package:bachay/view/home_view/components/custom_appbar.dart';
+import 'package:bachay/view/home_view/components/qr_code_hint.dart';
+import 'package:bachay/view/home_view/components/qr_scan_centered_text.dart';
 import 'package:bachay/viewmodel/camera_provider/camera_provider.dart';
+import 'package:bachay/viewmodel/qr_code_provider/qr_code_provider.dart';
+import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:qr_code_scanner/qr_code_scanner.dart';
+import 'package:qr_flutter/qr_flutter.dart';
 
-class HomeBody extends StatelessWidget {
+class HomeBody extends StatefulWidget {
   const HomeBody();
+
+  @override
+  _HomeBodyState createState() => _HomeBodyState();
+}
+
+class _HomeBodyState extends State<HomeBody> {
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,16 +42,11 @@ class HomeBody extends StatelessWidget {
                 return Stack(
                   alignment: Alignment.center,
                   children: [
-                    if (!watch(cameraProvider).isCameraOpen) child,
+                   if (!watch(qrCodeViewProvider).isScannerOpen)
+                       child
                     //display if camera is opened
-                    if (watch(cameraProvider).isCameraOpen)
-                      Align(
-                        child: SizedBox(
-                          height: 200,
-                          width: 150,
-                          child: watch(cameraProvider).camera,
-                        ),
-                      ),
+                    else
+                      CameraPreviewWidget(),
                   ],
                 );
               },
@@ -40,50 +55,6 @@ class HomeBody extends StatelessWidget {
           ),
         ],
       ),
-    );
-  }
-}
-
-class QRCodeHintWidget extends StatelessWidget {
-  const QRCodeHintWidget({
-    Key key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: Style.PADDING_HRT_8,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Image.asset(
-            Images.qr_code,
-            height: context.responsive.widgetScaleFactor * 10,
-            color: context.themeData.cardColor,
-          ),
-          const SizedBox(height: Values.VALUE_10),
-          Text(
-              "We are one of the leading\nmanufacturers of gypsum\nbased building materials",
-              style: context.themeData.textTheme.bodyText1),
-        ],
-      ),
-    );
-  }
-}
-
-class CustomAppBar extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      alignment: Alignment.centerLeft,
-      padding: Style.PADDING_ALL_4.copyWith(left: Values.VALUE_20),
-      decoration: BoxDecoration(
-        color: LightColors.PRIMARY_COLOR,
-        borderRadius: Style.BORDER_BOTTOM_2SIDE_RADIUS,
-      ),
-      width: context.responsive.widgetScaleFactor * 100,
-      height: context.responsive.widgetScaleFactor * 7.5,
-      child: Image.asset(Images.logo, color: Colors.white),
     );
   }
 }

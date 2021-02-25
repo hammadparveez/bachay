@@ -1,10 +1,10 @@
 class Strings {
   //Descriptive Strings
-  static const APP_NAME = "Bachay";
+  static const APP_NAME = "Knauf";
   static const ON_BOARD_TITLE1 = "SDTYUIOPLK";
   static const ON_BOARD_PARA =
       "We are one of the leading manufacturers\nof gypsum based building materials";
-
+  static const QR_CODE_PARA = "We are one of the leading\nmanufacturers of gypsum\nbased building materials";
   //Minimal Strings
   static const NEXT = "Next";
   static const SKIP = "Skip";

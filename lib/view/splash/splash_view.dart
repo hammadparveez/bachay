@@ -30,7 +30,7 @@ class _SplashViewState extends State<SplashView> {
   void _redirectTo() async {
     Future.delayed(Durations.ONE_TWO_SEC, () {
       if (context.read(onBoardProvider).isOnBoardSeen())
-        Get.offAllNamed(Routes.HOME);
+        Get.offAllNamed(Routes.ON_BOARD);
       else
         Get.offAllNamed(Routes.ON_BOARD);
     });

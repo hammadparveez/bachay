@@ -33,6 +33,7 @@ class CameraNotifier extends ChangeNotifier {
       _cameraController =
           await _cameraConfig.init(cameraDescription, resolutionPreset);
       _cameraErrorMsg = null;
+
     } catch (e) {
       //Default is CameraException
       _cameraErrorMsg = Strings.cameraCantOpen;
