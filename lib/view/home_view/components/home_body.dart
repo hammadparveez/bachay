@@ -43,7 +43,7 @@ class _HomeBodyState extends State<HomeBody> {
                        child
                     //display if camera is opened
                     else
-                       CameraPreviewWidget(),
+                       CameraPreviewWidget(key: widget.key1),
 
                    // BottomNavigation(),
                   ],

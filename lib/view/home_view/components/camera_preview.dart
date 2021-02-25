@@ -1,19 +1,14 @@
-
-import 'dart:io';
-
+import 'package:bachay/responsive_ext.dart';
 import 'package:bachay/view/home_view/components/animated_qr_bar.dart';
 import 'package:bachay/view/home_view/components/qr_scan_centered_text.dart';
 import 'package:bachay/viewmodel/qr_code_provider/qr_code_provider.dart';
-import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
-import 'package:bachay/responsive_ext.dart';
-import 'package:bachay/viewmodel/camera_provider/camera_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 
-
 class CameraPreviewWidget extends StatefulWidget {
-  const CameraPreviewWidget();
+  final GlobalKey<CameraPreviewWidgetState> key;
+  CameraPreviewWidget({this.key}) : super(key: key);
   @override
   CameraPreviewWidgetState createState() => CameraPreviewWidgetState();
 }
@@ -21,12 +16,13 @@ class CameraPreviewWidget extends StatefulWidget {
 class CameraPreviewWidgetState extends State<CameraPreviewWidget> {
   final GlobalKey qrKey = GlobalKey(debugLabel: "QR");
 
-
-
   @override
   void initState() {
     super.initState();
-
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      print("Widget now Exists $mounted");
+      context.read(qrCodeViewProvider).isCameraWidgetMounted = mounted;
+    });
   }
 
   @override
@@ -37,7 +33,6 @@ class CameraPreviewWidgetState extends State<CameraPreviewWidget> {
 
   @override
   Widget build(BuildContext context) {
-
     return SizedBox(
       width: context.responsive.widgetScaleFactor * 45,
       height: context.responsive.widgetScaleFactor * 45,
@@ -46,9 +41,9 @@ class CameraPreviewWidgetState extends State<CameraPreviewWidget> {
           return Center(
             child: Stack(
               children: [
-                QRView(key: qrKey, onQRViewCreated:
-                 context.read(qrCodeViewProvider).init
-                ),
+                QRView(
+                    key: qrKey,
+                    onQRViewCreated: context.read(qrCodeViewProvider).init),
                 LayoutBuilder(
                   builder: (_, constraints) => Align(
                     child: Container(
@@ -65,12 +60,11 @@ class CameraPreviewWidgetState extends State<CameraPreviewWidget> {
                             bottom: 0,
                             left: 0,
                             right: 0,
-                            child:  QrScanCenteredText()),
+                            child: QrScanCenteredText()),
                       ]),
                     ),
                   ),
                 ),
-
               ],
             ),
           );
