@@ -12,13 +12,32 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 
 
-class CameraPreviewWidget extends StatelessWidget {
-  final key = GlobalKey(debugLabel: "QR Code1");
-  onQRCameraCreate(QRViewController controller) {
+class CameraPreviewWidget extends StatefulWidget {
+  const CameraPreviewWidget();
+  @override
+  CameraPreviewWidgetState createState() => CameraPreviewWidgetState();
+}
+
+class CameraPreviewWidgetState extends State<CameraPreviewWidget> {
+  final GlobalKey qrKey = GlobalKey(debugLabel: "QR");
+
+
+
+  @override
+  void initState() {
+    super.initState();
+
+  }
+
+  @override
+  void dispose() {
+    print("Mounded${mounted}");
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+
     return SizedBox(
       width: context.responsive.widgetScaleFactor * 45,
       height: context.responsive.widgetScaleFactor * 45,
@@ -27,7 +46,9 @@ class CameraPreviewWidget extends StatelessWidget {
           return Center(
             child: Stack(
               children: [
-                Center(child: QRView(key: key, onQRViewCreated: context.read(qrCodeViewProvider).init )),
+                QRView(key: qrKey, onQRViewCreated:
+                 context.read(qrCodeViewProvider).init
+                ),
                 LayoutBuilder(
                   builder: (_, constraints) => Align(
                     child: Container(

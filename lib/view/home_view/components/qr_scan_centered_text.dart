@@ -15,7 +15,7 @@ class QrScanCenteredText extends StatelessWidget {
         child: Text(
           Strings.APP_NAME,
           style: TextStyle(
-              fontSize: constraints.maxHeight / 2.2,
+              fontSize: constraints.maxWidth/3,
               fontWeight: FontWeight.bold,
               fontFamily: AppConstants.VOLTE,
               color: Colors.black38),

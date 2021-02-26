@@ -99,7 +99,8 @@ class _OnBoardBodyState extends State<OnBoardBody> {
       Durations.ONE_500_MILLI: Durations.MICRO_500,
       curve: toRight  == 0 ? Curves.easeInExpo : Curves.easeInCubic,
       bottom: Values.VALUE_25,
-      right: toRight + context.responsive.widgetScaleFactor * 7,
+      right: toRight == 0 ? 0 : toRight + context.responsive.widgetScaleFactor * 7,
+      left: 0,
       child:
       Align(
         child:Container(
@@ -123,6 +124,8 @@ class _OnBoardBodyState extends State<OnBoardBody> {
               Expanded(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
+
+
                     children: [
                       Text(Strings.ON_BOARD_TITLE1,
                           style: context.themeData.textTheme.headline1
