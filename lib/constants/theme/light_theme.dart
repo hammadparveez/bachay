@@ -17,8 +17,9 @@ class LightTheme {
       iconTheme: const IconThemeData(color: LightColors.WHITE),
       shadowColor: LightColors.LIGHT_WHITE_D6,
       textTheme: TextTheme(bodyText1: Style.bodyText1.copyWith(color: LightColors.LIGHT_BLACK26,),
-          headline1:  Style.heading1.copyWith(color: LightColors.DARK_GRAY),
-    ),
+          headline1:  Style.bodyText2.copyWith(color: LightColors.DARK_GRAY, fontWeight: FontWeight.w500),
+          bodyText2: Style.bodyText1.copyWith(color: LightColors.PRIMARY_COLOR,)
+      ),
       buttonTheme: ButtonThemeData(
           buttonColor: LightColors.PRIMARY_COLOR,
           textTheme: ButtonTextTheme.primary),

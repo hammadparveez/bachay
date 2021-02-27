@@ -26,6 +26,8 @@ class _OnBoardBodyState extends State<OnBoardBody> {
   int index = 0, totalPages;
   Widget _indicatorContainer;
   PageController _pageController;
+  final _onBoardTitles = [Strings.ON_BOARD_TITLE1, Strings.ON_BOARD_TITLE2, Strings.ON_BOARD_TITLE3];
+  final _onBoardParas = [Strings.ON_BOARD_PARA1,Strings.ON_BOARD_PARA2,Strings.ON_BOARD_PARA3];
   @override
   void initState() {
     super.initState();
@@ -64,7 +66,7 @@ class _OnBoardBodyState extends State<OnBoardBody> {
       builder: (_, ScopedReader watch, child) => PageView.builder(
         onPageChanged: onPageChange,
         controller: watch(splashProvider).pageController,
-        itemCount: watch(splashProvider).length,
+        itemCount: _onBoardTitles.length,
         itemBuilder: (_, index) {
           return Stack(
             children: [
@@ -84,7 +86,7 @@ class _OnBoardBodyState extends State<OnBoardBody> {
                 ),
               ),
               const SizedBox(height: Values.VALUE_10),
-              _animatedPositionedContainer(),
+               _animatedPositionedContainer(title:_onBoardTitles[index] , para:_onBoardParas[index] ),
             ],
           );
         },
@@ -93,10 +95,10 @@ class _OnBoardBodyState extends State<OnBoardBody> {
   }
 
   //Animated Positioned Container
-  Widget _animatedPositionedContainer() {
+  Widget _animatedPositionedContainer({@required String title,@required String para}) {
     return AnimatedPositioned(
       duration: toRight  == 0 ?
-      Durations.ONE_500_MILLI: Durations.MICRO_500,
+      Durations.ONE_300_MILLI: Durations.MICRO_500,
       curve: toRight  == 0 ? Curves.easeInExpo : Curves.easeInCubic,
       bottom: Values.VALUE_25,
       right: toRight == 0 ? 0 : toRight + context.responsive.widgetScaleFactor * 7,
@@ -106,6 +108,7 @@ class _OnBoardBodyState extends State<OnBoardBody> {
         child:Container(
           height: context.responsive.widgetScaleFactor * 40,
           width: context.responsive.widgetScaleFactor * 42,
+          padding: Style.PADDING_HZT_20,
           decoration: BoxDecoration(
             color: context.themeData.backgroundColor,
             borderRadius: BorderRadius.circular(
@@ -122,64 +125,69 @@ class _OnBoardBodyState extends State<OnBoardBody> {
             children: [
               _indicators(context),
               Expanded(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                  child: OverflowBox(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
 
-
-                    children: [
-                      Text(Strings.ON_BOARD_TITLE1,
-                          style: context.themeData.textTheme.headline1
-                              .copyWith(
-                              fontSize:
-                              context.responsive.textScaleFactor *
-                                  4)),
-                      const SizedBox(height: Values.VALUE_10),
-                      Text(Strings.ON_BOARD_PARA,
-                          textAlign: TextAlign.center,
-                          style: Style.secondaryTextStyleLight.copyWith(
-                              fontSize:
-                              context.responsive.widgetScaleFactor *
-                                  1.8)),
-                      const SizedBox(height: Values.VALUE_10),
-                      //RaisedButton
-                      RaisedButton(
-                        onPressed: () {
-                          _pageController.animateToPage(index+1, duration: Durations.ONE_500_MILLI, curve: Curves.easeInExpo);
-                          if(index == totalPages-1) {
-                            context.read(onBoardProvider).setOnBoardSeen(true);
-                            Get.offAllNamed(Routes.HOME);
-                          }
-                          else
-                          _pageController.animateToPage(index+1, duration: Durations.ONE_500_MILLI, curve: Curves.easeInExpo);
-  },
-                        color: LightColors.PRIMARY_COLOR,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: Style.BORDER_FULL_RADIUS),
-                        child: Text(index != totalPages-1 ? Strings.NEXT: Strings.GET_STARTED,
-                            style: Style.secondaryTextStyleLightWhite
+                      children: [
+                        if(!(index != totalPages-1))
+                        Spacer(),
+                        Text(title,
+                            style: context.themeData.textTheme.headline1
                                 .copyWith(
-                                fontSize: context.responsive
-                                    .widgetScaleFactor *
-                                    1.8)),
-                      ),
-                      //FlatButton
-                      if(index != totalPages-1)
-                        FlatButton(
+                              fontWeight: FontWeight.bold,
+                                fontSize:
+                                context.responsive.textScaleFactor *
+                                    3)),
+                        const SizedBox(height: Values.VALUE_10),
+                        Text(para,
+                            textAlign: TextAlign.center,
+                            style: context.themeData.textTheme.bodyText1.copyWith(
+                                fontSize:
+                                context.responsive.widgetScaleFactor *
+                                    1.7)),
+                        const SizedBox(height: Values.VALUE_10),
+                        //RaisedButton
+                        RaisedButton(
                           onPressed: () {
-                            context
-                                .read(themeProvider)
-                                .updateTheme(ThemeStatus.LIGHT);
-                          },
-                          child: Text(
-                            Strings.SKIP,
-                            style: context.themeData.textTheme.bodyText1
-                                .copyWith(
-                                fontSize: context
-                                    .responsive.widgetScaleFactor *
-                                    1.5),
-                          ),
+                            _pageController.animateToPage(index+1, duration: Durations.ONE_500_MILLI, curve: Curves.easeInExpo);
+                            if(index == totalPages-1) {
+                              context.read(onBoardProvider).setOnBoardSeen(true);
+                              Get.offAllNamed(Routes.HOME);
+                            }
+                            else
+                            _pageController.animateToPage(index+1, duration: Durations.ONE_500_MILLI, curve: Curves.easeInExpo);
+  },
+                          color: LightColors.PRIMARY_COLOR,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: Style.BORDER_FULL_RADIUS),
+                          child: Text(index != totalPages-1 ? Strings.NEXT: Strings.GET_STARTED,
+                              style: Style.secondaryTextStyleLightWhite
+                                  .copyWith(
+                                  fontSize: context.responsive
+                                      .widgetScaleFactor *
+                                      1.8)),
                         ),
-                    ],
+                        //FlatButton
+                        if(index != totalPages-1)
+                          FlatButton(
+                            onPressed: () {
+                              context.read(onBoardProvider).setOnBoardSeen(true);
+                              Get.offAllNamed(Routes.HOME);
+                            },
+                            child: Text(
+                              Strings.SKIP,
+                              style: context.themeData.textTheme.bodyText1
+                                  .copyWith(
+                                  fontSize: context
+                                      .responsive.widgetScaleFactor *
+                                      1.5),
+                            ),
+                          )
+                        else
+                          Spacer(flex: 2),
+                      ],
+                    ),
                   )),
             ],
           ),

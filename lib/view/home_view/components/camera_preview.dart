@@ -14,25 +14,30 @@ class CameraPreviewWidget extends StatefulWidget {
 }
 
 class CameraPreviewWidgetState extends State<CameraPreviewWidget> {
-  final GlobalKey qrKey = GlobalKey(debugLabel: "QR");
+
 
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      print("Widget now Exists $mounted");
       context.read(qrCodeViewProvider).isCameraWidgetMounted = mounted;
     });
   }
 
-  @override
-  void dispose() {
-    print("Mounded${mounted}");
-    super.dispose();
-  }
+
+
 
   @override
+  void dispose() {
+
+
+
+    super.dispose();
+  }
+  final GlobalKey qrKey = GlobalKey(debugLabel: "QR");
+  @override
   Widget build(BuildContext context) {
+
     return SizedBox(
       width: context.responsive.widgetScaleFactor * 45,
       height: context.responsive.widgetScaleFactor * 45,
@@ -60,7 +65,7 @@ class CameraPreviewWidgetState extends State<CameraPreviewWidget> {
                             bottom: 0,
                             left: 0,
                             right: 0,
-                            child: QrScanCenteredText()),
+                            child:QrScanCenteredText()),
                       ]),
                     ),
                   ),

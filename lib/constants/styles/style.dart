@@ -18,12 +18,14 @@ class Style {
   static const heading1 = const TextStyle(fontWeight: FontWeight.bold,  fontFamily: AppConstants.VOLTE);
 
 
+
   //App Padding
   static const DEFAULT_PADDING_HZT = const EdgeInsets.symmetric(horizontal: Values.VALUE_20);
   static const DEFAULT_PADDING_VRT = const EdgeInsets.symmetric(vertical: Values.VALUE_20);
   static const PADDING_HRT_25 = const EdgeInsets.symmetric(horizontal: Values.VALUE_25);
   static const PADDING_VRT_25 = const EdgeInsets.symmetric(vertical: Values.VALUE_25);
   static const PADDING_HZT_10 = const EdgeInsets.symmetric(horizontal: Values.VALUE_10);
+  static const PADDING_HZT_20 = const EdgeInsets.symmetric(horizontal: Values.VALUE_20);
   static const PADDING_VRT_10 = const EdgeInsets.symmetric(vertical: Values.VALUE_10);
   static const PADDING_HRT_8 = const EdgeInsets.symmetric(horizontal: Values.VALUE_8);
   static const PADDING_VRT_8 = const EdgeInsets.symmetric(vertical: Values.VALUE_8);

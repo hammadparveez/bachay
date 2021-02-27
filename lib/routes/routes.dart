@@ -10,7 +10,7 @@ class Routes {
 }
 
 final Map<String, WidgetBuilder> routes = <String, WidgetBuilder>{
-  Routes.HOME: (_) => HomeView(),
+  Routes.HOME: (_) => HomeView(key: ModalRoute.of(_).settings.arguments),
   Routes.ON_BOARD: (_) => OnBoardView(),
   Routes.SPLASH: (_) => SplashView(),
 };

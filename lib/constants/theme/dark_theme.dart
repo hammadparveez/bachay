@@ -20,7 +20,8 @@ class DarkTheme {
       cardColor: DarkColors.DARK_LIGHTE3,
       textTheme:
       TextTheme(bodyText1: Style.bodyText1.copyWith(color: DarkColors.DARK_LIGHTE3),
-        headline1:  Style.heading1.copyWith(color: DarkColors.DARK_LIGHTE3)
+        headline1:  Style.heading1.copyWith(color: DarkColors.DARK_LIGHTE3, fontWeight: FontWeight.w500),
+          bodyText2: Style.bodyText1.copyWith(color: DarkColors.PRIMARY_ORIGINAL)
       ),
     );
   }

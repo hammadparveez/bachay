@@ -27,6 +27,7 @@ class QRCodeHintWidget extends StatelessWidget {
           const SizedBox(height: Values.VALUE_10),
           Text(
               Strings.QR_CODE_PARA,
+              textAlign: TextAlign.center,
               style: context.themeData.textTheme.bodyText1),
         ],
       ),

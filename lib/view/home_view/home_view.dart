@@ -13,12 +13,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class HomeView extends StatelessWidget {
-  final GlobalKey<CameraPreviewWidgetState> _cameraKey = GlobalKey();
+  final Key key;
+   HomeView({this.key}) :super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child:  HomeBody(key1: _cameraKey,
+        child:  HomeBody(
         ),
       ),
       bottomNavigationBar: ProviderListener(
@@ -26,7 +27,7 @@ class HomeView extends StatelessWidget {
         onChange: (_, CameraNotifier cameraNotifier) {
           //if (cameraNotifier.cameraErrorMsg != null)
         },
-        child:  BottomNavigation(key1: _cameraKey),
+        child:  BottomNavigation(),
       ),
     );
   }

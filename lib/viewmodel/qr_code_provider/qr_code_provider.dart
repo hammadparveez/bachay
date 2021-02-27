@@ -7,7 +7,7 @@ final qrCodeViewProvider = ChangeNotifierProvider((ref) => QrCodeNotifier());
 
 class QrCodeNotifier extends ChangeNotifier {
   QRViewController _qrViewController;
-  bool isScannerOpen = true;
+  bool isScannerOpen = false;
   Barcode _qrCode;
   String errorMessage;
   bool _isCameraWidgetMounted = false;
@@ -24,36 +24,54 @@ class QrCodeNotifier extends ChangeNotifier {
   init(QRViewController controller) {
     _qrViewController = controller;
     _qrViewController.scannedDataStream.listen((event) {
-      _qrCode = event;
-      isScannerOpen = false;
-      _qrViewController.stopCamera();
-      notifyListeners();
+      try {
+        _qrViewController.pauseCamera();
+
+      }catch(e) {
+        errorMessage  = Strings.failedToOpenCamera;
+        notifyListeners();
+      }
+
     });
+    notifyListeners();
   }
 
   void tryToOpenCamera() {
     isScannerOpen = true;
+
     notifyListeners();
   }
-
-  void resumeCamera() async {
+  void closeCameraViewIfNotPermission() {
+    isScannerOpen = false;
+    notifyListeners();
+  }
+  Future<void> resumeCamera() async {
     try {
+
       if (_isCameraWidgetMounted) {
         await _qrViewController.resumeCamera();
         errorMessage = null;
       }
     } catch (error) {
-      // isScannerOpen = false;
+      isScannerOpen = false;
       errorMessage = Strings.failedToOpenCamera;
     }
     notifyListeners();
   }
 
   void pauseCamera() async {
-    await _qrViewController.pauseCamera();
-    _qrViewController.dispose();
-    isScannerOpen = false;
-    _isCameraWidgetMounted = false;
+    try {
+      _qrViewController.dispose();
+      isScannerOpen = false;
+      _isCameraWidgetMounted = false;
+      errorMessage = null;
+    }catch(error) {
+      isScannerOpen = false;
+      _isCameraWidgetMounted = false;
+      errorMessage = Strings.failedToOpenCamera;
+    }
+
+
     notifyListeners();
   }
 }

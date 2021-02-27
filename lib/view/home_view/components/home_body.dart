@@ -1,20 +1,16 @@
 
 import 'dart:io';
 
-import 'package:bachay/responsive_ext.dart';
-import 'package:bachay/view/home_view/components/animated_qr_bar.dart';
 import 'package:bachay/view/home_view/components/camera_preview.dart';
-import 'package:bachay/view/home_view/components/curved_navigation_bar.dart';
 import 'package:bachay/view/home_view/components/custom_appbar.dart';
 import 'package:bachay/view/home_view/components/qr_code_hint.dart';
-import 'package:bachay/view/home_view/components/qr_scan_centered_text.dart';
-import 'package:bachay/viewmodel/camera_provider/camera_provider.dart';
 import 'package:bachay/viewmodel/qr_code_provider/qr_code_provider.dart';
-import 'package:camera/camera.dart';
+import 'package:bachay/viewmodel/riverpod_global.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:qr_code_scanner/qr_code_scanner.dart';
-import 'package:qr_flutter/qr_flutter.dart';
+import 'package:permission_handler/permission_handler.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart' as riverPod;
+
 
 class HomeBody extends StatefulWidget {
   final GlobalKey<CameraPreviewWidgetState> key1;
@@ -26,6 +22,23 @@ class HomeBody extends StatefulWidget {
 
 class _HomeBodyState extends State<HomeBody> {
 
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      Permission.camera.isGranted.then((value) {
+        if (!value)
+          context.read(qrCodeViewProvider).closeCameraViewIfNotPermission();
+      });
+    });
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,6 +49,8 @@ class _HomeBodyState extends State<HomeBody> {
           Expanded(
             child: Consumer(
               builder: (_, watch, child) {
+
+
                 return Stack(
                   alignment: Alignment.center,
                   children: [
